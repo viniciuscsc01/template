@@ -16,7 +16,7 @@ function Login() {
   useEffect( () => {
 
     if( login ) {
-        localStorage.setItem( "usuario" , JSON.stringify( usuario._id ) );
+        localStorage.setItem( "usuario" , usuario );
         setEmail( "" );
         setSenha( "" );
         navigate( "/dashboard" );
@@ -44,12 +44,14 @@ function Login() {
 
         if( json.user ) {
             setLogin( true );
-            setUsuario( json.user );
+            setUsuario( json.user._id );
+            setErro( false );
         } else {
-            setErro( true );
+            setErro( "Dados incorretos" );
+            setLogin( false );
         }
     } )
-    .catch( ( erro ) => {  setErro( true ) } )
+    .catch( ( erro ) => {  setErro( "Ops...ocorreu um erro" ) } )
     
   }
 
